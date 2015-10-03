@@ -12,9 +12,9 @@ direction = ["east", "west"]
 # class to instantiate new subway cars
 class subwayCar:
 	def __init__(self, stationName, delayed, direction):
-      self.name = stationName
-      self.delayed = delayed
-      self.direction = direction
+		self.name = stationName
+		self.delayed = delayed
+		self.direction = direction
 
 # start up two subway cars at Kipling and Royal York
 car1 = subwayCar("Kipling", False, "east")
@@ -25,7 +25,7 @@ def isDelayed(tweet):
 	tweetLowerCase = tweet.lower()
 	if "all clear" in tweetLowerCase:
 		delayed = False
-	else if "suspended" or "delayed":
+	elif "suspended" or "delayed":
 		delayed = True
 	return delayed
 
@@ -34,17 +34,28 @@ def whichStation(tweet):
 	for stationName in station:
 		if stationName in tweet:
 			return stationName
-		else return "No station mentioned"
+		else: 
+			return "No station mentioned"
 
 # set all other cars delayed behind delayed station
 # need to implement case where car behind was already delayed
-def setDelays(station):
-
+def setDelays(stationName, eastWest):
+	if eastWest == "east":
+		if station.index(car1.name) < station.index(stationName):
+			car1.delayed = True
+	elif eastWest == "west":
+		if station.index(car1.name) > station.index(stationName):
+			car1.delayed = True
 
 # set all other cars clear behind cleared station
 # need to implement case where car behind may be delayed from other reasons
-def setClears(station):
-	
+def setClears(station, eastWest):
+	if eastWest == "east":
+		if station.index(car1.name) < station.index(stationName):
+			car1.delayed = False
+	elif eastWest == "west":
+		if station.index(car1.name) > station.index(stationName):
+			car1.delayed = False
 
 pullTweets = open('tweets.txt', 'r').read() # read in dummy tweets from TTCNotices
 individualTweets = pullTweets.split('\n') # split tweets in file by newline
@@ -55,8 +66,10 @@ for index in range(len(individualTweets)):
 	randomDirection = random.choice(direction) #choose which way subway car is delayed or cleared
 
 	if isDelayed(randomTweet):
-		if car1.name == whichStation(randomTweet):
+		if car1.name == whichStation(randomTweet) and car1.direction == randomDirection:
 			car1.delayed = True
+			setDelays(whichStation(randomTweet), randomDirection)
 	else:
-		if car1.name == whichStation(randomTweet):
+		if car1.name == whichStation(randomTweet) and car1.direction == randomDirection:
 			car1.delayed = False
+			setClears(whichStation(randomTweet), randomDirection)
