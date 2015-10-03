@@ -37,11 +37,14 @@ def whichStation(tweet):
 		else return "No station mentioned"
 
 # set all other cars delayed behind delayed station
+# need to implement case where car behind was already delayed
 def setDelays(station):
 
-# set all other cars clear behind cleared station
-def setClears(station):
 
+# set all other cars clear behind cleared station
+# need to implement case where car behind may be delayed from other reasons
+def setClears(station):
+	
 
 pullTweets = open('tweets.txt', 'r').read() # read in dummy tweets from TTCNotices
 individualTweets = pullTweets.split('\n') # split tweets in file by newline
