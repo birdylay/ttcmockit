@@ -1,4 +1,6 @@
 import random
+import database
+from datetime import datetime
 
 # stations on the Bloor-Danforth Line 2
 station = ["Kipling", "Islington", "Royal York", "Old Mill", "Jane", "Runnymede", 
@@ -26,6 +28,9 @@ class subwayCar:
 		self.direction = direction
 		self.timer = 0
 
+	def getID(self):
+		return self.ID
+
 	def getStation(self):
 		return self.name
 
@@ -34,6 +39,9 @@ class subwayCar:
 
 	def getDirection(self):
 		return self.direction
+
+	def getTimer(self):
+		return self.timer
 
 # each station has its own state
 # stationName: string - name of station
@@ -61,15 +69,18 @@ class subwayStation:
 # instantiating stations into dictionary, key: name value:object pair
 for name in station:
 	stationObjects[name] = subwayStation(name, False, False, 0)
+	database.insertStation(name, "False", "False", 0)
 
 # start up two subway cars at Kipling and Kennedy
 car1 = subwayCar(1, "Kipling", False, "east")
 stationObjects["Kipling"].occupiedEast = True
 stationObjects["Kipling"].numberOfTrains = 1
+database.updateStation("Kipling", "True", "False", 1)
 
 car2 = subwayCar(2, "Kennedy", False, "west")
 stationObjects["Kennedy"].occupiedWest = True
 stationObjects["Kennedy"].numberOfTrains = 1
+database.updateStation("Kennedy", "False", "True", 1)
 
 '''
 car3 = subwayCar(3, "Bay", False, "east")
@@ -82,6 +93,8 @@ stationObjects["Bay"].numberOfTrains = 2
 '''
 subwayCars = [car1, car2]
 #subwayCars = [car1, car2, car3, car4]
+for car in subwayCars:
+	database.insertCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
 
 # determine if tweet refers to a delay or all clear
 def isDelayed(tweet):
@@ -136,6 +149,7 @@ for index in range(1000):
 	for car in subwayCars:
 		if car.delayed == False:
 			car.timer = car.timer + 1
+			database.updateCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
 		if car.timer == 5:
 			if car.direction == "east": 
 				nextStation = station[station.index(car.name)+1] 
@@ -144,9 +158,15 @@ for index in range(1000):
 					car.timer = 0
 					stationObjects[car.name].occupiedEast = False
 					stationObjects[car.name].numberOfTrains -= 1
+
+					t = stationObjects[car.name]
+					database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
 					car.name = nextStation
 					stationObjects[nextStation].occupiedEast = True
 					stationObjects[nextStation].numberOfTrains += 1
+					t = stationObjects[nextStation]
+					database.updateCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
+					database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
 					print "CarID: " + str(car.ID) + " arriving at " + car.name + " | " + car.direction + "bound"
 			else:
 				# same logic applied to westbound trains
@@ -155,28 +175,47 @@ for index in range(1000):
 					car.timer = 0
 					stationObjects[car.name].occupiedWest = False
 					stationObjects[car.name].numberOfTrains -= 1
+
+					t = stationObjects[car.name]
+					database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
 					car.name = nextStation
 					stationObjects[nextStation].occupiedWest = True
 					stationObjects[nextStation].numberOfTrains += 1
+					t = stationObjects[nextStation]
+					database.updateCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
+					database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
 					print "CarID: " + str(car.ID) + " arriving at " + car.name + " | " + car.direction + "bound"
 			# terminal stations, change direction of arriving cars, ensure westbound and eastbound attributes of stations are set as occupied. eg. if arriving into Kipling westbound, change direction to east, check number of trains at the station, if only that one train then set westbound side to be free to make room for 1 more train.
 			if car.name == "Kipling":
 				car.direction = "east"
 				stationObjects[car.name].occupiedEast = True
+				database.updateCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
+				t = stationObjects[car.name]
+				database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
+
 				if stationObjects[car.name].numberOfTrains == 1:
 					stationObjects[car.name].occupiedWest = False
+					t = stationObjects[car.name]
+					database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
 			elif car.name == "Kennedy":
 				car.direction = "west"
 				stationObjects[car.name].occupiedWest = True
+				database.updateCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
+				t = stationObjects[car.name]
+				database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
 				if stationObjects[car.name].numberOfTrains == 1:
 					stationObjects[car.name].occupiedEast = False
+					t = stationObjects[car.name]
+					database.updateStation(t.getName(), t.getOccupiedEast(), t.getOccupiedWest(), t.getNumberOfTrains())
 	# determine if cars are delayed or cleared
 	if isDelayed(randomTweet):
 		for car in subwayCars:
 			if car.delayed == False and car.name == whichStation(randomTweet) and car.direction == randomDirection:
 				car.delayed = True
 				#setDelays(whichStation(randomTweet), randomDirection)
-				print car.name + " is delayed " + car.direction 
+				print car.name + " is delayed " + car.direction
+				database.updateCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
+				database.insertTweet(randomTweet, datetime.now().time())
 			
 	else:
 		for car in subwayCars:
@@ -184,3 +223,5 @@ for index in range(1000):
 				car.delayed = False
 				#setClears(whichStation(randomTweet), randomDirection)
 				print car.name + " is all clear " + car.direction
+				database.updateCar(car.getID(), car.getStation(), car.getDelayed(), car.getDirection(), car.getTimer())
+				database.insertTweet(randomTweet, datetime.now().time())
