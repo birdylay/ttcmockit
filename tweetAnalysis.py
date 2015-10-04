@@ -71,15 +71,16 @@ car2 = subwayCar(2, "Kennedy", False, "west")
 stationObjects["Kennedy"].occupiedWest = True
 stationObjects["Kennedy"].numberOfTrains = 1
 
+'''
 car3 = subwayCar(3, "Bay", False, "east")
 stationObjects["Bay"].occupiedEast = True
 stationObjects["Bay"].numberOfTrains = 1
-'''
+
 car4 = subwayCar("Bay", False, "west")
 stationObjects["Bay"].occupiedWest = True
 stationObjects["Bay"].numberOfTrains = 2
 '''
-subwayCars = [car1, car2, car3]
+subwayCars = [car1, car2]
 #subwayCars = [car1, car2, car3, car4]
 
 # determine if tweet refers to a delay or all clear
@@ -174,12 +175,12 @@ for index in range(1000):
 		for car in subwayCars:
 			if car.delayed == False and car.name == whichStation(randomTweet) and car.direction == randomDirection:
 				car.delayed = True
-				setDelays(whichStation(randomTweet), randomDirection)
+				#setDelays(whichStation(randomTweet), randomDirection)
 				print car.name + " is delayed " + car.direction 
 			
 	else:
 		for car in subwayCars:
 			if car.delayed == True and car.name == whichStation(randomTweet) and car.direction == randomDirection:
 				car.delayed = False
-				setClears(whichStation(randomTweet), randomDirection)
+				#setClears(whichStation(randomTweet), randomDirection)
 				print car.name + " is all clear " + car.direction
