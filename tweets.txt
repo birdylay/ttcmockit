@@ -15,6 +15,7 @@ Service suspended @ Ossington due to a Police Investigation. #TTC
 Service suspended @ Christie due to a Police Investigation. #TTC
 Service suspended @ Bathurst due to a Police Investigation. #TTC
 Service suspended @ Spadina due to a Police Investigation. #TTC
+Service suspended @ St. George due to a Police Investigation. #TTC
 Service suspended @ Bay due to a Police Investigation. #TTC
 Service suspended @ Bloor-Yonge due to a Police Investigation. #TTC
 Service suspended @ Sherbourne due to a Police Investigation. #TTC
@@ -58,3 +59,4 @@ ALL CLEAR: The delay @ Woodbine has now cleared and full service has resumed on 
 ALL CLEAR: The delay @ Main Street has now cleared and full service has resumed on the Line 2. #TTC
 ALL CLEAR: The delay @ Warden has now cleared and full service has resumed on the Line 2. #TTC
 ALL CLEAR: The delay @ Kennedy has now cleared and full service has resumed on the Line 2. #TTC
+ALL CLEAR: The delay @ St. George has now cleared and full service has resumed on the Line 2. #TTC
