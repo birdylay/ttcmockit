@@ -14,5 +14,5 @@ Simulation of delays along the Bloor Line.  Originally started at the Toronto Tr
 2. Ensure gulp and npm are installed globally
 3. On command prompt run following commands
 - cd `project-directory`
-- npm 
+- `npm install`
 - `gulp`
