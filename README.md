@@ -3,6 +3,7 @@
 Simulation of delays along the Bloor Line.  Originally started at the Toronto TrafficJam Hackathon 2015.  Work in progress.  Refactoring code using React and D3.
 
 ## [Demo](http://superficial-basketball.surge.sh/)
+- best viewed in Chrome
 
 ## TODO
 - implement logic connection between tweets and subway animation
