@@ -1,0 +1,96 @@
+// Import all partials
+//@require './_*.styl'
+html
+	background #292f33
+
+.twitter-feed
+	overflow scroll
+	max-width 50%
+	
+
+.tweet-wrap
+	font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+	font-size 14px
+	box-sizing border-box
+	border 1px solid #E1E8ED
+	background #FFF
+	background-clip padding-box
+	max-width 50%
+	min-height 51px
+	padding 9px 12px
+	position relative
+	margin-left 0
+	list-style none
+	display flex
+li:hover
+		background #F5F8Fa
+	.content
+		margin-left 58px
+		.content-header
+			color #8899a6
+			.avatar
+				width 48px
+				height 48px
+				border-radius 5px
+				margin-top 3px
+				margin-left -58px
+				float left
+			.fullname
+				color #292f33
+			strong:hover
+				color #0084B4
+				text-decoration underline
+			.username
+				direction ltr
+				unicode-bidi embed
+				font-size 13px
+				s
+					color #B1BBC3
+					text-decoration none
+				b
+					font-weight normal
+			.time
+				font-size 13px
+		.tweet-text
+			color #292f33
+			font-size 20px
+			line-height 25px
+			font-weight 300
+			letter-spacing .01em
+			white-space pre-wrap
+			word-wrap break-word
+			p
+				margin 0
+				
+.station
+	fill white
+	stroke red
+	stroke-width 2
+
+.toronto
+	fill none
+	stroke #fff
+	stroke-width 0.5
+
+.arcTop
+	fill none
+	stroke #33cc33
+	stroke-width 5
+	
+.arcBottom
+	fill none
+	stroke #1f7a1f
+	stroke-width 2.5
+	
+#main2
+	position absolute
+	top 0
+	z-index -1
+
+.train
+	fill #e0ebeb
+	stroke #660000
+	stroke-width 2
+
+.arcHiddenLine
+	fill none

@@ -1,51 +1,21 @@
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-<style>
-body {background-color:black}
-
-#topsidebar
-{
-	margin-left: 10px;
-	border-radius: 25px;
-    background-color: red;
-    font: 14px/1.333 sans-serif;
-    color: #080000;
-}
-h1
-{
-	font-family: 'Open Sans';
-	color: white;
-}
-#title
-{
-	font-size: 75%;
-}
-#subway
-{
-	padding: 0;
-  	margin: 0;
-}
-</style>
-</style>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>TTC Subway</title>
-    <script type="text/javascript" src="resources/d3/d3.js"></script>
-    <script type="text/javascript" src="resources/raphael-min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-   
+  <meta charset="UTF-8">
+  <title>TTC Mockit</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/build/css/style.css">
+  <link rel="shortcut icon" href="http://facebook.github.io/react/favicon.ico">
 </head>
 <body>
-<div layout = "column" flex>
-	<div id = "title"><h1>Visualizing TTC Alerts on the Bloor-Danforth Line</h1></div>
-	<div id = "topsidebar" style="height: 300px; width: 500px;">
-	<div id = "subway">
-	 <script type="text/javascript" src = "toronto_subway_map.js"></script>
-	 <script type="text/javascript" src = "subway_animation.js"></script>
-	</div> 
-	</div>
-	
-	
-	
-</div>
+
+    <div id="main">
+      <!-- This is where our React app will go -->
+    </div>
+    <div id="main2">
+    </div>
+
+  <script src="/build/main.js"></script>
+
 </body>
+</html>
